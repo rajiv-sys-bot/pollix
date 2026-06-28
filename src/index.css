@@ -1,49 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  color-scheme: dark;
-
-  /* Glass surface tokens */
-  --glass-bg:          rgba(255, 255, 255, 0.06);
-  --glass-bg-strong:   rgba(255, 255, 255, 0.10);
-  --glass-bg-soft:     rgba(255, 255, 255, 0.04);
-  --glass-border:      rgba(255, 255, 255, 0.12);
-  --glass-border-hi:   rgba(255, 255, 255, 0.22);
-  --glass-inner:       inset 0 1px 0 0 rgba(255, 255, 255, 0.10);
-  --glass-blur:        blur(24px) saturate(160%);
-
-  /* Text */
-  --text-primary:   #f5f6ff;
-  --text-secondary: rgba(232, 235, 255, 0.72);
-  --text-tertiary:  rgba(200, 207, 240, 0.50);
-
-  /* Accents */
-  --accent-1: #7c3aed;   /* violet */
-  --accent-2: #c084fc;   /* purple-400 */
-  --accent-3: #a855f7;   /* purple-500 */
-  --accent-grad: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
-  --accent-grad-soft: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(192, 132, 252, 0.18));
-
-  /* Semantic */
-  --success:        #4ade80;
-  --success-soft:   rgba(74, 222, 128, 0.16);
-  --warning:        #fbbf24;
-  --warning-soft:   rgba(251, 191, 36, 0.16);
-  --danger:         #fb7185;
-  --danger-soft:    rgba(251, 113, 133, 0.16);
-  --info:           #60a5fa;
-  --info-soft:      rgba(96, 165, 250, 0.16);
-
-  /* Radii */
-  --radius-sm:  0.5rem;
-  --radius-md:  0.85rem;
-  --radius-lg:  1.1rem;
-  --radius-xl:  1.5rem;
+  color-scheme: light;
+  --bg: #f6f7f3;
+  --bg-elevated: #ffffff;
+  --bg-subtle: #eef1ea;
+  --line: #d9ded5;
+  --line-strong: #bcc5ba;
+  --text: #17201a;
+  --text-soft: #526054;
+  --text-faint: #738073;
+  --accent: #205c43;
+  --accent-soft: #e6f0eb;
+  --accent-strong: #143e2d;
+  --success: #1d6b46;
+  --success-soft: #e6f4ec;
+  --warning: #8a5a14;
+  --warning-soft: #fff4dd;
+  --danger: #9f2f2f;
+  --danger-soft: #fdebec;
+  --info: #2756a3;
+  --info-soft: #eaf0fd;
+  --shadow-sm: 0 1px 2px rgba(23, 32, 26, 0.04);
+  --shadow-md: 0 10px 30px rgba(23, 32, 26, 0.06);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
   --radius-pill: 999px;
-
-  /* Shadows */
-  --shadow-glass: 0 16px 40px -16px rgba(8, 4, 32, 0.55), 0 2px 6px rgba(8, 4, 32, 0.25);
-  --shadow-glow:  0 0 0 1px rgba(124, 58, 237, 0.35), 0 0 28px rgba(124, 58, 237, 0.35);
 }
 
 * {
@@ -52,109 +35,82 @@
   padding: 0;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   min-height: 100vh;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.9375rem;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 15px;
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--text-primary);
-  background: #0b0719;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* Animated aurora background — base layer for glass refraction */
-body::before {
-  content: '';
-  position: fixed;
-  inset: -20vmax;
-  z-index: -2;
+  color: var(--text);
   background:
-    radial-gradient(50vmax 50vmax at 20% 25%, rgba(124, 58, 237, 0.55), transparent 60%),
-    radial-gradient(55vmax 55vmax at 80% 80%, rgba(168, 85, 247, 0.40), transparent 60%),
-    radial-gradient(45vmax 45vmax at 50% 50%, rgba(192, 132, 252, 0.22), transparent 70%);
-  filter: blur(48px);
-  animation: aurora-drift 36s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-/* Subtle starfield noise to add texture under the glass */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    radial-gradient(1px 1px at 25% 30%, rgba(255,255,255,0.5) 50%, transparent 51%),
-    radial-gradient(1px 1px at 70% 65%, rgba(255,255,255,0.35) 50%, transparent 51%),
-    radial-gradient(1px 1px at 45% 80%, rgba(255,255,255,0.30) 50%, transparent 51%),
-    radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.40) 50%, transparent 51%),
-    radial-gradient(1px 1px at 15% 75%, rgba(255,255,255,0.35) 50%, transparent 51%);
-  background-size: 600px 600px;
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-@keyframes aurora-drift {
-  0%   { transform: translate3d(0, 0, 0)      scale(1); }
-  50%  { transform: translate3d(4vmax, -3vmax, 0) scale(1.05); }
-  100% { transform: translate3d(-3vmax, 4vmax, 0) scale(0.98); }
+    radial-gradient(circle at top left, rgba(32, 92, 67, 0.08), transparent 28%),
+    linear-gradient(180deg, #fbfcf9 0%, var(--bg) 100%);
 }
 
 #root {
   width: 100%;
 }
 
-button, input, select, textarea {
-  font-family: inherit;
-  font-size: inherit;
+button,
+input,
+select,
+textarea {
+  font: inherit;
   color: inherit;
 }
 
+button,
+select {
+  border: 0;
+  background: none;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+}
+
 a {
-  color: var(--accent-2);
+  color: var(--accent);
   text-decoration: none;
-  transition: color 160ms ease;
 }
 
 a:hover {
-  color: #6ff5e0;
-  text-decoration: none;
+  color: var(--accent-strong);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p,
+li,
+dd,
+span {
+  text-wrap: pretty;
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.45);
-  color: #fff;
+  background: rgba(32, 92, 67, 0.14);
 }
 
-/* Custom scrollbar to match the dark theme */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.18);
-  background-clip: padding-box;
-  border: 2px solid transparent;
+:focus-visible {
+  outline: 3px solid rgba(32, 92, 67, 0.22);
+  outline-offset: 2px;
 }

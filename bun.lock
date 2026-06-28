@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "live-poll",
+      "name": "pollix",
       "dependencies": {
         "@creit.tech/stellar-wallets-kit": "^1.9.5",
         "@stellar/stellar-sdk": "^15.0.1",

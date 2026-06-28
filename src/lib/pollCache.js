@@ -1,4 +1,5 @@
-export const POLL_CACHE_STORAGE_KEY = 'onvote_cached_polls'
+export const POLL_CACHE_STORAGE_KEY = 'pollix_cached_polls'
+const LEGACY_POLL_CACHE_STORAGE_KEYS = ['onvote_cached_polls']
 
 function getDefaultStorage() {
   const storage = globalThis?.localStorage
@@ -7,7 +8,7 @@ function getDefaultStorage() {
   }
 
   try {
-    const testKey = '__onvote_storage_test__'
+    const testKey = '__pollix_storage_test__'
     storage.setItem(testKey, '1')
     storage.removeItem(testKey)
     return storage
@@ -29,18 +30,24 @@ export function readCachedPolls(storage = getDefaultStorage()) {
     return []
   }
 
-  const cached = storage.getItem(POLL_CACHE_STORAGE_KEY)
-  if (!cached) {
-    return []
-  }
+  const cachedValues = [
+    storage.getItem(POLL_CACHE_STORAGE_KEY),
+    ...LEGACY_POLL_CACHE_STORAGE_KEYS.map((key) => storage.getItem(key)),
+  ]
 
-  const parsed = safeJsonParse(cached)
-  if (Array.isArray(parsed)) {
-    return parsed
-  }
+  for (const cached of cachedValues) {
+    if (!cached) {
+      continue
+    }
 
-  if (parsed && typeof parsed === 'object' && Array.isArray(parsed.polls)) {
-    return parsed.polls
+    const parsed = safeJsonParse(cached)
+    if (Array.isArray(parsed)) {
+      return parsed
+    }
+
+    if (parsed && typeof parsed === 'object' && Array.isArray(parsed.polls)) {
+      return parsed.polls
+    }
   }
 
   return []
@@ -70,4 +77,3 @@ export function removeCachedPoll(pollId, storage = getDefaultStorage()) {
   const remainingPolls = readCachedPolls(storage).filter((poll) => poll.id !== pollId)
   writeCachedPolls(remainingPolls, storage)
 }
-

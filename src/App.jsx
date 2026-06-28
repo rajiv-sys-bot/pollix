@@ -698,11 +698,11 @@ function App() {
         <div className="sidebar-brand glass">
           <div className="brand-mark" aria-hidden="true">
             <span className="brand-mark-glow" />
-            <span className="brand-mark-text">OV</span>
+            <span className="brand-mark-text">PX</span>
           </div>
           <div className="brand-copy">
-            <h1>OnVote</h1>
-            <p>On-chain polls on Stellar Testnet</p>
+            <h1>Pollix</h1>
+            <p>Minimal on-chain polling on Stellar Testnet</p>
           </div>
         </div>
 
@@ -780,11 +780,11 @@ function App() {
           {/* Hero strip — supported wallets */}
           <section className="hero-strip glass">
             <div className="hero-strip-copy">
-              <p className="section-label">Supported wallets</p>
-              <h2>Connect any Stellar wallet to vote</h2>
+              <p className="section-label">Wallet access</p>
+              <h2>Clean polling, direct from chain</h2>
               <p>
-                Works with {SUPPORTED_WALLET_NAMES.length}+ wallets via StellarWalletsKit.
-                Create polls, cast votes, and close polls directly from the browser.
+                Pollix works with {SUPPORTED_WALLET_NAMES.length}+ Stellar wallets.
+                Create polls, cast votes, and manage live results from one minimal workspace.
               </p>
             </div>
             <div className="wallet-rail">
@@ -802,7 +802,7 @@ function App() {
               <div className="panel-head">
                 <div>
                   <p className="section-label">Transaction status</p>
-                  <h3>Live phase tracker</h3>
+                  <h3>Transaction status</h3>
                 </div>
                 <span className={`phase-badge ${transaction.phase}`}>{transaction.phase}</span>
               </div>
@@ -847,7 +847,7 @@ function App() {
               <div className="panel-head">
                 <div>
                   <p className="section-label">Live sync</p>
-                  <h3>Contract activity</h3>
+                  <h3>Sync status</h3>
                 </div>
                 <button className="secondary-button" onClick={() => refreshPollState()} type="button">
                   {isRefreshing || isBooting ? 'Refreshing...' : 'Refresh now'}
@@ -878,8 +878,8 @@ function App() {
           <section className="panel glass compose-panel">
             <div className="panel-head">
               <div>
-                <p className="section-label">Create a poll</p>
-                <h3>Ask the community something</h3>
+                <p className="section-label">Create poll</p>
+                <h3>Publish one focused question</h3>
               </div>
               <span className="panel-meta">{wallet ? shortenAddress(wallet.address) : 'Wallet required'}</span>
             </div>
@@ -959,7 +959,7 @@ function App() {
             <div className="controls-head">
               <div>
                 <p className="section-label">Poll feed</p>
-                <h3>Browse &amp; vote on polls</h3>
+                <h3>Browse and vote</h3>
               </div>
 
               <div className="control-strip">
@@ -1012,8 +1012,8 @@ function App() {
               </div>
             ) : visiblePolls.length === 0 ? (
               <div className="empty-state">
-                <h4>No polls found</h4>
-                <p>Create the first on-chain poll to start testing real-time voting.</p>
+                <h4>No polls yet</h4>
+                <p>Create first Pollix poll to start live voting on testnet.</p>
               </div>
             ) : (
               <div className="poll-grid">
@@ -1150,7 +1150,7 @@ function App() {
       >
         <div className="event-drawer-head">
           <div>
-            <p className="section-label">Recent contract events</p>
+            <p className="section-label">Recent events</p>
             <h3>Activity stream</h3>
           </div>
           <button

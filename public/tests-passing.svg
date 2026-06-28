@@ -16,7 +16,7 @@
   <text class="title" x="34" y="44">Terminal — npm test</text>
 
   <text class="txt" x="34" y="76">
-    <tspan class="muted">> onvote@0.0.0 test</tspan>
+    <tspan class="muted">> pollix@0.0.0 test</tspan>
     <tspan x="34" dy="18" class="muted">> node tests/run.mjs</tspan>
 
     <tspan x="34" dy="28" class="ok">PASS</tspan><tspan class="txt"> parsePollHash extracts poll id</tspan>
@@ -29,4 +29,3 @@
     <tspan x="34" dy="28" class="txt">6 passing, 0 failing</tspan>
   </text>
 </svg>
-

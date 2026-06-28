@@ -26,6 +26,8 @@ const wasmPath =
 const server = new rpc.Server(rpcUrl)
 const wasm = fs.readFileSync(wasmPath)
 const spec = Spec.fromWasm(wasm)
+const ACCOUNT_LOOKUP_RETRIES = 12
+const ACCOUNT_LOOKUP_DELAY_MS = 1500
 
 function fail(message) {
   throw new Error(message)
@@ -35,6 +37,38 @@ function toHex(bytes) {
   return Buffer.from(bytes).toString('hex')
 }
 
+function describeSubmissionError(reply) {
+  if (!reply) {
+    return 'unknown submission error'
+  }
+
+  return JSON.stringify(
+    reply,
+    (_, value) => (typeof value === 'bigint' ? value.toString() : value),
+    2,
+  )
+}
+
+async function waitForAccount(publicKey) {
+  let lastError
+
+  for (let attempt = 1; attempt <= ACCOUNT_LOOKUP_RETRIES; attempt += 1) {
+    try {
+      return await server.getAccount(publicKey)
+    } catch (error) {
+      lastError = error
+
+      if (attempt === ACCOUNT_LOOKUP_RETRIES) {
+        break
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, ACCOUNT_LOOKUP_DELAY_MS))
+    }
+  }
+
+  throw lastError
+}
+
 async function getSourceKeypair() {
   const secret = process.env.STELLAR_DEPLOYER_SECRET
   if (secret) {
@@ -42,12 +76,20 @@ async function getSourceKeypair() {
   }
 
   const generated = Keypair.random()
-  await server.fundAddress(generated.publicKey())
+  const fundingResponse = await fetch(
+    `https://friendbot.stellar.org/?addr=${encodeURIComponent(generated.publicKey())}`,
+  )
+
+  if (!fundingResponse.ok) {
+    fail(`Friendbot funding failed with status ${fundingResponse.status}.`)
+  }
+
+  await waitForAccount(generated.publicKey())
   return { keypair: generated, generated: true }
 }
 
 async function sendOperation(sourceKeypair, operation) {
-  const account = await server.getAccount(sourceKeypair.publicKey())
+  const account = await waitForAccount(sourceKeypair.publicKey())
 
   const tx = new TransactionBuilder(account, {
     fee: BASE_FEE,
@@ -62,7 +104,7 @@ async function sendOperation(sourceKeypair, operation) {
 
   const submission = await server.sendTransaction(prepared)
   if (submission.status === 'ERROR' || submission.status === 'TRY_AGAIN_LATER') {
-    fail(`Submission failed with status ${submission.status}.`)
+    fail(`Submission failed: ${describeSubmissionError(submission)}.`)
   }
 
   const finalResult = await server.pollTransaction(submission.hash, {
@@ -121,7 +163,7 @@ async function deployContract(sourceKeypair, wasmHash, saltHex) {
 }
 
 async function invokeCreatePoll(sourceKeypair, contractId) {
-  const account = await server.getAccount(sourceKeypair.publicKey())
+  const account = await waitForAccount(sourceKeypair.publicKey())
   const contract = new Contract(contractId)
   const args = spec.funcArgsToScVals('create_poll', {
     creator: sourceKeypair.publicKey(),
@@ -143,7 +185,7 @@ async function invokeCreatePoll(sourceKeypair, contractId) {
 
   const submission = await server.sendTransaction(prepared)
   if (submission.status === 'ERROR' || submission.status === 'TRY_AGAIN_LATER') {
-    fail(`Sample contract call failed with status ${submission.status}.`)
+    fail(`Sample contract call failed: ${describeSubmissionError(submission)}.`)
   }
 
   const finalResult = await server.pollTransaction(submission.hash, {
