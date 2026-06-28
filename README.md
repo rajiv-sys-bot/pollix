@@ -1,51 +1,142 @@
 # Pollix
 
-Pollix is a minimal Stellar + Soroban polling app. It lets users connect a supported Stellar wallet, create polls, vote on-chain, and watch contract events sync back into the UI in near real time.
+Pollix is a mini end-to-end Stellar + Soroban dApp: a multi-wallet polling app backed by a deployed Soroban smart contract on Stellar Testnet, with real-time contract event sync, transaction progress feedback, basic caching, and a small automated test suite.
 
-## What changed
+## Level 3 Submission Checklist (fill before submitting)
 
-- Project renamed to `Pollix`
-- UI rebuilt for a cleaner light theme
-- New default contract id wired into frontend
-- Deploy script hardened to wait for funded testnet accounts before sending transactions
+- Live demo link: https://pollix-one.vercel.app/
+- Demo video (1 minute) link: https://drive.google.com/file/d/1cdpKdsmvOHXuiCg9wwU_9EdvNHkMECre/view?usp=sharing
+- Test output screenshot (3+ passing tests): ✅ (see below)
+- Public GitHub repo link: `https://github.com/rohit-012005/Online-Live-Poll.git`
+- 3+ meaningful commits for Level 3: ✅
 
-## Tech
 
-- React + Vite
-- Soroban smart contract in Rust
-- `StellarWalletsKit` for multi-wallet support
-- Stellar testnet RPC + Stellar Expert links
+## Submission Overview
 
-## Local setup
 
-Run from project root:
+This project demonstrates:
+
+- Multi-wallet integration with `StellarWalletsKit`
+- Smart contract deployment on Stellar Testnet
+- Contract reads and writes from the frontend
+- Real-time event polling and state synchronization
+- Visible transaction lifecycle feedback
+- Wallet error handling for missing wallet, rejected request, and insufficient balance
+- Loading states and progress indicators during reads/writes
+- Basic caching of recently loaded poll data in `localStorage`
+- Automated tests for core helper logic
+
+## Key Features
+
+- Connect with supported Stellar wallets including Freighter, xBull, Albedo, Rabet, Lobstr, Hana, Hot Wallet, and Klever
+- Create, vote on, close, and delete polls through frontend contract calls
+- Browse contract data in read-only mode even without a connected wallet
+- See transaction phases in the UI: `preparing`, `awaiting-signature`, `pending`, `success`, and `error`
+- Refresh poll state automatically from recent on-chain contract events
+
+## Screenshots
+
+<table width="100%">
+  <tr>
+    <td align="center" width="50%">
+      <strong>🏠 Home Page</strong><br/><br/>
+      <img width="2848" height="1572" alt="screenshot_visible_2026-04-30_17-06-27" src="https://github.com/user-attachments/assets/a1c8793f-aae9-44ed-803f-04a436d5fedd" />
+    </td>
+    <td align="center" width="50%">
+      <strong>📝 Create Poll</strong><br/><br/>
+   <img width="2848" height="1572" alt="screenshot_visible_2026-04-30_17-14-55" src="https://github.com/user-attachments/assets/1e63b7cd-6ce2-4ef4-a07b-1ecae1771c22" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <strong>🗳️ Voting</strong><br/><br/>
+   <img width="2848" height="1572" alt="screenshot_visible_2026-04-30_17-17-31" src="https://github.com/user-attachments/assets/b962d4ce-2b4e-42e4-9f8e-29774f78538d" />
+    </td>
+    <td align="center" width="50%">
+      <strong>✅ CI/CD Results</strong><br/><br/>
+    <img width="1426" height="830" alt="image" src="https://github.com/user-attachments/assets/ae849647-7b8a-412e-92b8-0fb1532a5c4a" />
+    </td>
+  </tr>
+</table>
+
+## Mobile responsive screenshots
+
+Below is a mobile view screenshot demonstrating the responsive layout on narrow screens. Replace the placeholder with a real phone-sized screenshot captured from the dev tools or a device.
+
+<div align="center">
+<img width="389" height="700" alt="2026-04-30_18-25-47" src="https://github.com/user-attachments/assets/23b9e24d-e978-4e81-9db3-dc2976486253" />
+
+</div>
+
+
+## Deployed Contract
+
+- Network: `Stellar Testnet`
+- Contract address: `CAHG7YZZGL75OEPTLVN53S3JCOIJGXRKJW4IO523RFDRLL2QSNOZMRP3`
+- Contract explorer: https://stellar.expert/explorer/testnet/contract/CAHG7YZZGL75OEPTLVN53S3JCOIJGXRKJW4IO523RFDRLL2QSNOZMRP3
+
+## Verifiable Contract Call
+
+- Deploy tx hash: `c728a93d3cd08f59ac5180dfbb719a01bfaf87ddea22d5f6b377bf61041df4ec`
+- Stellar Expert link: https://stellar.expert/explorer/testnet/tx/c728a93d3cd08f59ac5180dfbb719a01bfaf87ddea22d5f6b377bf61041df4ec
+- Sample `create_poll` tx hash: `5b11d01e8a7be366c3d8cf893e4920b1e574c96727ad3e5d876c96ec13ab86ea`
+- Stellar Expert link: https://stellar.expert/explorer/testnet/tx/5b11d01e8a7be366c3d8cf893e4920b1e574c96727ad3e5d876c96ec13ab86ea
+
+## Live Demo
+
+https://pollix-one.vercel.app/
+
+## Setup
+
+Run all commands from the `pollix` project directory.
+
+1. Install dependencies:
 
 ```bash
 npm install
+```
+
+2. Build the Soroban contract:
+
+```bash
 npm run contract:build
+```
+
+3. Sync the compiled contract WASM into the frontend (used to load the contract spec/ABI at runtime):
+
+```bash
 npm run wasm:sync
+```
+
+4. Optionally create a local env file:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+5. Start the frontend:
+
+```bash
 npm run dev
 ```
 
-Optional local env:
+6. Build for production:
 
 ```bash
-cp .env.example .env.local
-```
-
-## Scripts
-
-```bash
-npm run dev
 npm run build
-npm run lint
-npm test
-npm run contract:build
-npm run wasm:sync
-npm run contract:deploy
 ```
 
-## Environment
+## Tests
+
+Run the automated tests:
+
+```bash
+npm test
+```
+
+For submission, include a screenshot of the terminal output showing **3+ tests passing**.
+
+## Environment Variables
 
 ```env
 VITE_STELLAR_RPC_URL=https://soroban-testnet.stellar.org
@@ -56,27 +147,62 @@ VITE_STELLAR_EXPLORER_URL=https://stellar.expert/explorer/testnet
 VITE_POLL_CONTRACT_WASM_URL=/contracts/poll_contract.wasm
 ```
 
-## Current testnet deployment
+## Testnet Notes
 
-- Network: `Stellar Testnet`
-- Contract id: `CAHG7YZZGL75OEPTLVN53S3JCOIJGXRKJW4IO523RFDRLL2QSNOZMRP3`
-- Contract explorer: https://stellar.expert/explorer/testnet/contract/CAHG7YZZGL75OEPTLVN53S3JCOIJGXRKJW4IO523RFDRLL2QSNOZMRP3
-- WASM upload tx: `ba448a3a6940eb61a57af2bd157885d648a0d2a0c9ab94c96c35de65f04199b0`
-- Deploy tx: `c728a93d3cd08f59ac5180dfbb719a01bfaf87ddea22d5f6b377bf61041df4ec`
-- Sample `create_poll` tx: `5b11d01e8a7be366c3d8cf893e4920b1e574c96727ad3e5d876c96ec13ab86ea`
+- A connected wallet must be funded on Stellar Testnet before it can send contract transactions
+- If a wallet has not been created on Testnet yet, fund it with Friendbot first and then retry
+- The app can still read poll data without a funded wallet by using a temporary read account
 
-## Testnet notes
+## Scripts
 
-- Wallet must be funded on testnet before signing contract writes
-- Read-only mode still works without a connected wallet
-- If you redeploy, update `VITE_STELLAR_CONTRACT_ID` or `.env.local`
+- `npm run dev` starts the frontend
+- `npm run build` creates a production build
+- `npm run lint` runs ESLint
+- `npm test` runs the Node.js test suite
+- `npm run contract:build` builds the Soroban contract
+- `npm run wasm:sync` copies the compiled WASM into `public/contracts/` for the frontend to load the contract spec
+- `npm run contract:deploy` uploads and deploys the contract to testnet
 
-## Project structure
+## Deploy (Vercel / Netlify)
 
-- `src/` frontend
-- `src/lib/stellar.js` wallet, RPC, contract, event helpers
-- `src/lib/pollCache.js` local cache helpers
-- `src/lib/pollLogic.js` poll view logic
-- `poll_contract/` Soroban contract
-- `scripts/` contract deploy + wasm sync helpers
-- `tests/` Node test suite
+This is a standard Vite build.
+
+- Node.js: use Node `^20.19.0` or `>=22.12.0` (required by Vite 8)
+- Build command: `npm run build`
+- Output directory: `dist`
+- Set the env vars from the section above (at minimum `VITE_STELLAR_CONTRACT_ID` if you deploy a new contract)
+
+## Demo Video (1 minute)
+
+https://drive.google.com/file/d/1cdpKdsmvOHXuiCg9wwU_9EdvNHkMECre/view?usp=sharing
+
+Walkthrough:
+
+1. Open the deployed site and show the “Read from contract” panel updating.
+2. Connect a wallet (Freighter or any supported wallet).
+3. Create a poll (show “awaiting-signature” → “pending” → “success”).
+4. Vote on the poll and show the event feed / vote count updating.
+5. Open the contract/tx on Stellar Expert via the links in the UI.
+
+## Project Structure
+
+- `src/` contains the React frontend
+- `src/lib/stellar.js` contains wallet, RPC, contract, and event helpers
+- `src/lib/pollCache.js` contains the basic poll cache helpers
+- `src/lib/pollLogic.js` contains pure helper functions used by the UI
+- `poll_contract/` contains the Soroban contract
+- `scripts/` contains deployment helpers
+- `tests/` contains the automated test suite
+
+## Additional Docs
+
+- Frontend guide: [FRONTEND.md](./FRONTEND.md)
+- Contract guide: [poll_contract/README.md](./poll_contract/README.md)
+
+## Submission Notes
+
+- GitHub repository: `https://github.com/Sagar522290/livepoll.git`
+- The project includes multiple meaningful commits in git history
+- The contract is deployed on testnet and called from the frontend
+- Real-time event integration and visible transaction status are implemented
+- Before final submission, update the checklist at the top with your live demo link, demo video link, and test screenshot
