@@ -171,6 +171,7 @@
 .event-card-head,
 .event-drawer-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
@@ -180,6 +181,13 @@
 .status-list dd {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.82rem;
+}
+
+.panel-head > div,
+.controls-head > div,
+.event-drawer-head > div,
+.status-list div {
+  min-width: 0;
 }
 
 .disconnect-icon svg {
@@ -379,6 +387,14 @@ button:disabled {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+.status-list dd {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.7;
 }
 
 .sync-list,
@@ -736,6 +752,10 @@ button:disabled {
 
   .option-row,
   .poll-card-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .status-list {
     grid-template-columns: 1fr;
   }
 
