@@ -7,7 +7,6 @@ Pollix is a mini end-to-end Stellar + Soroban dApp: a multi-wallet polling app b
 - Live demo link: https://pollix-one.vercel.app/
 - Demo video (1 minute) link: https://drive.google.com/file/d/1cdpKdsmvOHXuiCg9wwU_9EdvNHkMECre/view?usp=sharing
 - Test output screenshot (3+ passing tests): ✅ (see below)
-- Public GitHub repo link: `https://github.com/rohit-012005/Online-Live-Poll.git`
 - 3+ meaningful commits for Level 3: ✅
 
 
@@ -39,23 +38,23 @@ This project demonstrates:
 <table width="100%">
   <tr>
     <td align="center" width="50%">
-      <strong>🏠 Home Page</strong><br/><br/>
-      <img width="2848" height="1572" alt="screenshot_visible_2026-04-30_17-06-27" src="https://github.com/user-attachments/assets/a1c8793f-aae9-44ed-803f-04a436d5fedd" />
+      <strong>🏠 Wallet Kit</strong><br/><br/>
+       <img width="1876" height="1005" alt="screenshot_visible_2026-06-28_20-36-35" src="https://github.com/user-attachments/assets/870941e7-e61a-49a2-9381-227525c339b7" />
     </td>
     <td align="center" width="50%">
-      <strong>📝 Create Poll</strong><br/><br/>
-   <img width="2848" height="1572" alt="screenshot_visible_2026-04-30_17-14-55" src="https://github.com/user-attachments/assets/1e63b7cd-6ce2-4ef4-a07b-1ecae1771c22" />
+      <strong>📝 Home Page</strong><br/><br/>
+  <img width="1876" height="1005" alt="screenshot_visible_2026-06-28_20-38-33" src="https://github.com/user-attachments/assets/d3c9a40f-2157-45d1-931f-07e49300bf35" />
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <strong>🗳️ Voting</strong><br/><br/>
-   <img width="2848" height="1572" alt="screenshot_visible_2026-04-30_17-17-31" src="https://github.com/user-attachments/assets/b962d4ce-2b4e-42e4-9f8e-29774f78538d" />
+ <img width="1876" height="1005" alt="screenshot_visible_2026-06-28_20-38-47" src="https://github.com/user-attachments/assets/19d878c7-9e33-488b-a957-81691d4ad9d4" />
     </td>
     <td align="center" width="50%">
       <strong>✅ CI/CD Results</strong><br/><br/>
-    <img width="1426" height="830" alt="image" src="https://github.com/user-attachments/assets/ae849647-7b8a-412e-92b8-0fb1532a5c4a" />
-    </td>
+      <img width="1876" height="1005" alt="screenshot_visible_2026-06-28_20-39-03" src="https://github.com/user-attachments/assets/5121bef7-fd13-43c4-b500-45c6f19a490f" />
+
   </tr>
 </table>
 
@@ -64,7 +63,8 @@ This project demonstrates:
 Below is a mobile view screenshot demonstrating the responsive layout on narrow screens. Replace the placeholder with a real phone-sized screenshot captured from the dev tools or a device.
 
 <div align="center">
-<img width="389" height="700" alt="2026-04-30_18-25-47" src="https://github.com/user-attachments/assets/23b9e24d-e978-4e81-9db3-dc2976486253" />
+<img width="425" height="912" alt="image" src="https://github.com/user-attachments/assets/ab72f56f-d897-48bc-aebe-68092d1b00f2" />
+
 
 </div>
 
@@ -201,7 +201,7 @@ Walkthrough:
 
 ## Submission Notes
 
-- GitHub repository: `https://github.com/Sagar522290/livepoll.git`
+- GitHub repository: `https://github.com/rajiv-sys-bot/pollix.git`
 - The project includes multiple meaningful commits in git history
 - The contract is deployed on testnet and called from the frontend
 - Real-time event integration and visible transaction status are implemented
